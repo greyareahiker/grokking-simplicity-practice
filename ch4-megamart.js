@@ -3,11 +3,17 @@ let shopping_cart_total = 0
 
 // 60p
 function add_item_to_cart(name, price) {
-  shopping_cart.push({
+  shopping_cart = add_item(shopping_cart, name, price)
+  calc_cart_total()
+}
+
+function add_item(cart, name, price) {
+  const new_cart = cart.slice()
+  new_cart.push({
     name: name,
     price: price,
   })
-  calc_cart_total()
+  return new_cart
 }
 
 // 61p 무료 배송비 계산

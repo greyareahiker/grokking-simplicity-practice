@@ -3,13 +3,9 @@ let shopping_cart_total = 0
 
 function add_item_to_cart(name, price) {
   shopping_cart = add_item(shopping_cart, name, price)
-  calc_cart_total(shopping_cart)
-}
-
-function calc_cart_total(cart) {
-  const total = calc_total(cart) // 오답노트: 암묵적 출력도 없앨 수 있으면 없애자
+  const total = calc_total(shopping_cart) // 오답노트: 암묵적 출력도 없앨 수 있으면 없애자
   set_cart_total_dom(total) // DOM action
-  update_shipping_icons(cart)
+  update_shipping_icons(shopping_cart)
   update_tax_dom(total)
 }
 

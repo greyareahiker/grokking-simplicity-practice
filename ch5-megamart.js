@@ -10,15 +10,23 @@ function add_item_to_cart(name, price) {
   update_tax_dom(total)
 }
 
+function get_free_shipping_with_item(cart, item) {
+  const new_cart = add_item(cart, item)
+  return is_free_shipping(new_cart)
+}
+
+function set_free_shipping_icon(button, isFreeShipping) {
+  if (isFreeShipping) button.show_free_shipping_icon() // DOM action
+  else button.hide_free_shipping_icon() // DOM action
+}
+
 function update_shipping_icons(cart) {
   const buy_buttons = get_buy_buttons_dom() // DOM get
   for (let i = 0; i < buy_buttons.length; i++) {
     const button = buy_buttons[i]
     const item = button.item
-    const new_cart = add_item(cart, item)
-    if (is_free_shipping(new_cart))
-      button.show_free_shipping_icon() // DOM action
-    else button.hide_free_shipping_icon() // DOM action
+    const isFreeShipping = get_free_shipping_with_item(cart, item)
+    set_free_shipping_icon(button, isFreeShipping)
   }
 }
 

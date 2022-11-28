@@ -9,15 +9,15 @@ function add_item_to_cart(name, price) {
 function calc_cart_total() {
   shopping_cart_total = calc_total(shopping_cart)
   set_cart_total_dom() // DOM action
-  update_shipping_icons()
+  update_shipping_icons(shopping_cart)
   update_tax_dom()
 }
 
-function update_shipping_icons() {
+function update_shipping_icons(cart) {
   const buy_buttons = get_buy_buttons_dom() // DOM get
   for (let i = 0; i < buy_buttons.length; i++) {
     const button = buy_buttons[i]
-    const new_cart = add_item(shopping_cart, item.name, item.price)
+    const new_cart = add_item(cart, item.name, item.price)
     if (is_free_shipping(new_cart))
       button.show_free_shipping_icon() // DOM action
     else button.hide_free_shipping_icon() // DOM action

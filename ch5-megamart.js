@@ -17,8 +17,8 @@ function update_shipping_icons() {
   const buy_buttons = get_buy_buttons_dom() // DOM get
   for (let i = 0; i < buy_buttons.length; i++) {
     const button = buy_buttons[i]
-    const item = button.item
-    if (is_free_shipping(item.price, shopping_cart_total))
+    const new_cart = add_item(shopping_cart, item.name, item.price)
+    if (is_free_shipping(new_cart))
       button.show_free_shipping_icon() // DOM action
     else button.hide_free_shipping_icon() // DOM action
   }
@@ -37,8 +37,8 @@ function add_item(cart, name, price) {
   return new_cart
 }
 
-function is_free_shipping(item_price, total) {
-  return item_price + total >= 20
+function is_free_shipping(cart) {
+  return calc_total(cart) >= 20
 }
 function calc_tax(total) {
   return total * 0.1

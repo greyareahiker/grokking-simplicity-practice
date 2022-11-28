@@ -3,14 +3,14 @@ let shopping_cart_total = 0
 
 function add_item_to_cart(name, price) {
   shopping_cart = add_item(shopping_cart, name, price)
-  calc_cart_total()
+  calc_cart_total(shopping_cart)
 }
 
-function calc_cart_total() {
-  shopping_cart_total = calc_total(shopping_cart)
-  set_cart_total_dom() // DOM action
-  update_shipping_icons(shopping_cart)
-  update_tax_dom()
+function calc_cart_total(cart) {
+  const total = calc_total(cart) // 오답노트: 암묵적 출력도 없앨 수 있으면 없애자
+  set_cart_total_dom(total) // DOM action
+  update_shipping_icons(cart)
+  update_tax_dom(total)
 }
 
 function update_shipping_icons(cart) {
@@ -24,8 +24,8 @@ function update_shipping_icons(cart) {
   }
 }
 
-function update_tax_dom() {
-  set_tax_dom(calc_tax(shopping_cart_total)) // DOM action
+function update_tax_dom(total) {
+  set_tax_dom(calc_tax(total)) // DOM action
 }
 
 function add_item(cart, name, price) {

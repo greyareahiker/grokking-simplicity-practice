@@ -31,11 +31,16 @@ function make_cart_item(name, price) {
   return { name, price }
 }
 
+// util
+function add_element_last(array, elem) {
+  const new_array = array.slice()
+  new_array.push(elem)
+  return new_array
+}
+
 // C
 function add_item(cart, item) {
-  const new_cart = cart.slice()
-  new_cart.push(item)
-  return new_cart
+  return add_element_last(cart, item)
 }
 // C I B
 function calc_total(cart) {

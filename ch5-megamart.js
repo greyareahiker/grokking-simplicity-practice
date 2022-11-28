@@ -23,7 +23,7 @@ function update_shipping_icons(cart) {
 function update_tax_dom(total) {
   set_tax_dom(calc_tax(total)) // DOM action
 }
-
+// C I
 function add_item(cart, name, price) {
   const new_cart = cart.slice()
   new_cart.push({
@@ -32,14 +32,7 @@ function add_item(cart, name, price) {
   })
   return new_cart
 }
-
-function is_free_shipping(cart) {
-  return calc_total(cart) >= 20
-}
-function calc_tax(total) {
-  return total * 0.1
-}
-
+// C I B
 function calc_total(cart) {
   let total = 0
   for (let i = 0; i < cart.length; i++) {
@@ -47,4 +40,14 @@ function calc_total(cart) {
     total += item.price
   }
   return total
+}
+
+// B
+function is_free_shipping(cart) {
+  return calc_total(cart) >= 20
+}
+
+// B
+function calc_tax(total) {
+  return total * 0.1
 }

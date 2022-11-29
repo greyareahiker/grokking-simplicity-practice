@@ -36,3 +36,19 @@ function remove_item_by_name(cart, name) {
   if (idx !== null) new_cart.splice(idx, 1)
   return new_cart
 }
+
+// 추가: 일반화하기(util)
+function removeItems(array, idx, count) {
+  const copyArray = array.slice()
+  copyArray.splice(idx, count)
+  return copyArray
+}
+
+function remove_item_by_name(cart, name) {
+  let idx = null
+  for (let i = 0; i < new_cart.length; i++) {
+    if (cart[i].name === name) idx = i
+  }
+  if (idx !== null) return removeItems(cart, idx, 1)
+  return cart
+}

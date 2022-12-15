@@ -1,24 +1,30 @@
 // 270p
-function arraySet(array, idx, value) {
-  var copy = array.slice()
-  copy[idx] = value
+function withArrayCopy(array, modify) {
+  const copy = array.slice()
+  modify(copy)
   return copy
+}
+
+function arraySet(array, idx, value) {
+  return withArrayCopy(array, (copy) => {
+    copy[idx] = value
+  })
 }
 
 function push(array, elem) {
-  var copy = array.slice()
-  copy.push(elem)
-  return copy
+  return withArrayCopy(array, (copy) => {
+    copy.push(elem)
+  })
 }
 
 function drop_last(array) {
-  var array_copy = array.slice()
-  array_copy.pop()
-  return array_copy
+  return withArrayCopy(array, (copy) => {
+    copy.pop()
+  })
 }
 
 function drop_first(array) {
-  var array_copy = array.slice()
-  array_copy.shift()
-  return array_copy
+  return withArrayCopy(array, (copy) => {
+    copy.shift()
+  })
 }

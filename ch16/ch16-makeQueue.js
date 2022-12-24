@@ -20,8 +20,11 @@ function calc_cart_total(cart, callback) {
 }
 
 const queue_items = []
+let working = false
 
 function runNext() {
+  if (working) return
+  working = true
   const cart = queue_items.shift()
   calc_cart_total(cart, update_total_dom)
 }

@@ -19,7 +19,14 @@ function calc_cart_total(cart, callback) {
   })
 }
 
-function Queue() {
+function calc_cart_worker(cart, done) {
+  calc_cart_total(cart, (total) => {
+    update_total_dom(total)
+    done()
+  })
+}
+
+function Queue(worker) {
   const queue_items = []
   let working = false
 
@@ -28,13 +35,6 @@ function Queue() {
     if (queue_items.length === 0) return
     working = true
     const cart = queue_items.shift()
-
-    function worker(cart, done) {
-      calc_cart_total(cart, (total) => {
-        update_total_dom(total)
-        done()
-      })
-    }
 
     worker(cart, () => {
       working = false
@@ -48,4 +48,4 @@ function Queue() {
   }
 }
 
-const update_total_queue = new Queue()
+const update_total_queue = new Queue(calc_cart_worker)

@@ -26,7 +26,11 @@ function runNext() {
   if (working) return
   working = true
   const cart = queue_items.shift()
-  calc_cart_total(cart, update_total_dom)
+  calc_cart_total(cart, (total) => {
+    update_total_dom(total)
+    working = false
+    runNext()
+  })
 }
 
 function update_total_queue(cart) {

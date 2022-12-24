@@ -28,8 +28,15 @@ function Queue() {
     if (queue_items.length === 0) return
     working = true
     const cart = queue_items.shift()
-    calc_cart_total(cart, (total) => {
-      update_total_dom(total)
+
+    function worker(cart, done) {
+      calc_cart_total(cart, (total) => {
+        update_total_dom(total)
+        done()
+      })
+    }
+
+    worker(cart, () => {
       working = false
       runNext()
     })

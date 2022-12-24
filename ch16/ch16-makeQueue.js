@@ -19,22 +19,26 @@ function calc_cart_total(cart, callback) {
   })
 }
 
-const queue_items = []
-let working = false
+function Queue() {
+  const queue_items = []
+  let working = false
 
-function runNext() {
-  if (working) return
-  if (queue_items.length === 0) return
-  working = true
-  const cart = queue_items.shift()
-  calc_cart_total(cart, (total) => {
-    update_total_dom(total)
-    working = false
-    runNext()
-  })
+  function runNext() {
+    if (working) return
+    if (queue_items.length === 0) return
+    working = true
+    const cart = queue_items.shift()
+    calc_cart_total(cart, (total) => {
+      update_total_dom(total)
+      working = false
+      runNext()
+    })
+  }
+
+  return (cart) => {
+    queue_items.push(cart)
+    setTimeout(runNext, 0)
+  }
 }
 
-function update_total_queue(cart) {
-  queue_items.push(cart)
-  setTimeout(runNext, 0)
-}
+const update_total_queue = new Queue()

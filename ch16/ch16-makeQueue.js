@@ -24,6 +24,7 @@ let working = false
 
 function runNext() {
   if (working) return
+  if (queue_items.length === 0) return
   working = true
   const cart = queue_items.shift()
   calc_cart_total(cart, (total) => {

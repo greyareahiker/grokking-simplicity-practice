@@ -34,16 +34,19 @@ function Queue(worker) {
     if (working) return
     if (queue_items.length === 0) return
     working = true
-    const cart = queue_items.shift()
+    const item = queue_items.shift()
 
-    worker(cart, () => {
+    worker(item.data, () => {
       working = false
       runNext()
     })
   }
 
-  return (cart) => {
-    queue_items.push(cart)
+  return (data, callback) => {
+    queue_items.push({
+      data,
+      callback: callback || function () {},
+    })
     setTimeout(runNext, 0)
   }
 }

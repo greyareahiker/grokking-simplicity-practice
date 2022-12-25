@@ -22,7 +22,7 @@ function calc_cart_total(cart, callback) {
 function calc_cart_worker(cart, done) {
   calc_cart_total(cart, (total) => {
     update_total_dom(total)
-    done()
+    done(total)
   })
 }
 
@@ -36,8 +36,9 @@ function Queue(worker) {
     working = true
     const item = queue_items.shift()
 
-    worker(item.data, () => {
+    worker(item.data, (val) => {
       working = false
+      setTimeout(item.callback, 0, val) //
       runNext()
     })
   }
